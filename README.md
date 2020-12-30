@@ -1,2 +1,2 @@
 # SpringStudy
-Spring기본개념 정리
+## Spring의 핵심개념을 정리하기위한 Repo
