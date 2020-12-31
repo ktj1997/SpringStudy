@@ -46,6 +46,7 @@ public class FindBeanTest {
         //모든 Java객체는 Object를 상속
         Map<String,Object> map =ac.getBeansOfType(Object.class);
 
+        //부모객체 타입으로 꺼내오면, 부모를 상속하는 자식 Bean들도 다 딸려온다.
         for(String key:map.keySet()){
             Assertions.assertTrue(map.get(key) instanceof Object);
         }

@@ -1,6 +1,6 @@
 package com.study.spring.discount;
 
-import com.study.spring.config.AppConfig;
+import com.study.spring.config.AnnotationBeanConfig;
 import com.study.spring.member.Grade;
 import com.study.spring.member.Member;
 import org.junit.jupiter.api.Assertions;
@@ -10,7 +10,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class DiscountTest {
-    private static ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+    private static ApplicationContext ac = new AnnotationConfigApplicationContext(AnnotationBeanConfig.class);
     private final DiscountPolicy discountPolicy = ac.getBean(DiscountPolicy.class);
 
     @Test

@@ -1,6 +1,6 @@
 package com.study.spring.item;
 
-import com.study.spring.config.AppConfig;
+import com.study.spring.config.AnnotationBeanConfig;
 import com.study.spring.item.service.ItemService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ItemServiceTest {
 
-    private final ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+    private final ApplicationContext ac = new AnnotationConfigApplicationContext(AnnotationBeanConfig.class);
     private ItemService itemService = ac.getBean(ItemService.class);
 
     @Test
