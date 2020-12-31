@@ -72,16 +72,12 @@ ex) 공통된 추상화 객체를 사용함으로 해서 구현체를 몰라도 
 ```
 DI 컨테이너라고도 불리며, 스프링에서 설정정보(XML, Java 등등)에 따라서
 Bean을 생성하고 주입해주는 의존관계 주입(Dependency Injection)의 역할을 한다.
-```
-# Spring Container
-```
 ApplicationContext를 SpringContainer라고 하는데, 할당된 Bean을 받아올 수 있고, 추가적인 기능을 수행할 수 있다.
 
 ApplicationContext는 Interface 이고, BeanFactory 포함한 여러 Interface를 상속받는다.
 구현체로는 에노테이션으로 설정한 컨테이너(AnnotationConfigApplicationContext)와 
 XML으로 설정한 컨테이너(GenericXmlApplicationContext) 등이 있다.
-우선 상속받은 인터페이스들의 역할은 다음과 같다.
-
+ApplicationContext가 상속받는 인터페이스는 아래와 같다.
 1. BeanFactory
       최상위 인터페이스이며, Spring Bean을 관리하고 조회하는 역할을 담당한다.
 
