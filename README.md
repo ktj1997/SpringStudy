@@ -76,10 +76,9 @@ Bean을 생성하고 주입해주는 의존관계 주입(Dependency Injection)�
 # Spring Container
 ```
 ApplicationContext를 SpringContainer라고 하는데, 할당된 Bean을 받아올 수 있고, 추가적인 기능을 수행할 수 있다.
-![상속구조](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e0b69854-4e9d-410e-8bd8-2b96fa72f699/applicationContext.png)
 
 ApplicationContext는 Interface 이고, BeanFactory 포함한 여러 Interface를 상속받는다.
-구현체로는 에노테이션으로 설정한 컨테이너(ApplicationConfigApplicationContext)와 
+구현체로는 에노테이션으로 설정한 컨테이너(AnnotationConfigApplicationContext)와 
 XML으로 설정한 컨테이너(GenericXmlApplicationContext) 등이 있다.
 우선 상속받은 인터페이스들의 역할은 다음과 같다.
 
