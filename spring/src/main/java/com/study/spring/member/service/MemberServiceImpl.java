@@ -3,6 +3,10 @@ package com.study.spring.member.service;
 import com.study.spring.member.Member;
 import com.study.spring.member.dao.MemberRepository;
 public class MemberServiceImpl implements MemberService{
+    //SingletonTest 를 위한 Getter
+    public MemberRepository getMemberRepository() {
+        return memberRepository;
+    }
 
     private final MemberRepository memberRepository;
 

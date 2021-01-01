@@ -15,7 +15,10 @@ public class OrderServiceImpl implements OrderService {
     private final DiscountPolicy discountPolicy;
     private final OrderRepository orderRepository;
 
-
+    //SpringContainer의 Singleton 확인을 위한 Getter
+    public MemberRepository getMemberRepository() {
+        return memberRepository;
+    }
 
     @Override
     public Order createOrder(Long memberId, Long itemId) {
