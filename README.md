@@ -111,3 +111,66 @@ Java 클래스파일로 설정
 @Configuration → IOC컨테이너에세 설정관련 클래스파일임을 알림
 @Bean  → 메소드에 붙으며, 해당 메소드의 이름이 default로 Bean의 이름이되며, 반환 객체가 Bean
 ```
+
+### IOC컨테이너 사용의 장점
+```
+1. 의존성 관리 용이
+2. 라이프사이클 인터페이스 사용가능
+3. 싱글톤 스코프를 가짐 —> 런타임 최적화 유리
+```
+### Singleton
+요청마다 새롭게 객체를 생성하는 것이아닌, 이미 만들어놓은 객체의 참조만을 넘겨주는 것.
+JVM에 한 클래스에 오직 하나의 인스턴스만 존재하게 만든다.
+(Singleton이 아닐 때, 웹서비스 하나의 요청당 하나의 객체를 생성한다면?)
+
+#### Singleton Pattern 사용시 주의점
+1. Read-Only로 만들 것
+2. Stateless하게 만들 것
+
+#### Singleton Pattern의 단점
+```
+1. private 생성자로 만들기 때문에 자식 클래스 만들기가 어렵다
+2. 테스트하기 어렵다
+3. 유연성이 떨어진다
+4. 내부 속성의 변경 및 초기화가 어렵다
+```
+### Singleton Container
+```
+객체인스턴스를 모두 싱글톤으로 관리
+싱글톤 패턴을 구현하기위한 추가적인 코드를 구현하지 않을 수 있고,
+기존 싱글톤패턴구현의 단점들로부터 자유로워질 수 있다.
+```
+### @Configuration
+```
+@Configuration이 붙은 설정클래스는 SpringContainer가 관리하는 Bean이 된다.
+@Configuration이 붙은 클래스의 경우 추가적으로 
+바이트코드조작 라이브러리인 cglib이 해당 설정클래스를 상속받아,
+싱글톤에 필요한 코드를 추가적으로 구현하고, 해당 클래스를 Bean으로 등록한 후
+ApplicationContext가 해당 클래스를 사용한다.
+
+@Bean에노테이션이 붙어있다면, 해당 메소드가 리턴하는 객체를 Bean으로 등록하기는 하지만,
+@Configuration이 없다면, 스프링컨테이너에 의해서 관리되는지 알지 못하게되고,
+이미 한번 만들어진 해당 Type의 Bean은 Spring Container에 의해서 관리되지만,
+의존관계에 따른 참조까지 Singleton을 보장하지못한다.
+```
+
+[@Configuration에 따른 싱글톤 테스트](https://github.com/ktj1997/SpringStudy/blob/master/spring/src/test/java/com/study/spring/bean/SingletonBeanTest.java)
+```
+OrderServiceImpl orderService = aac.getBean(OrderServiceImpl.class);
+        MemberRepository memberRepository = aac.getBean(MemberRepository.class);
+        MemberServiceImpl memberService = aac.getBean(MemberServiceImpl.class);
+        Class annotationBeanConfig = AnnotationBeanConfig.class;
+        Annotation annotation = annotationBeanConfig.getAnnotation(Configuration.class);
+
+        if(annotation != null)
+            assertAll(
+                    () -> assertTrue(memberRepository == memberService.getMemberRepository()),
+                    () -> assertTrue(memberRepository == orderService.getMemberRepository()),
+                    () -> assertTrue(memberService.getMemberRepository() == orderService.getMemberRepository())
+            );
+        else
+            assertAll(
+                    () -> assertFalse(memberRepository == memberService.getMemberRepository()),
+                    () -> assertFalse(memberRepository == orderService.getMemberRepository()),
+                    () -> assertFalse(memberService.getMemberRepository() == orderService.getMemberRepository())
+            );
