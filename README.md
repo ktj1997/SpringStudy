@@ -176,6 +176,7 @@ OrderServiceImpl orderService = aac.getBean(OrderServiceImpl.class);
             );
 ```
 ### @Component Scan
+[@Component Scan 설정](https://github.com/ktj1997/SpringStudy/blob/master/spring/src/main/java/com/study/spring/config/AutoAnnotationBeanConfig.java)
 ```
 XML → Java를 이용한 Bean설정으로 넘어가면서 편해지긴 했지만,
 개발자가 수동으로 설정을 해주어야하는 것이므로, 
@@ -196,8 +197,29 @@ default는 @Component Scan이 붙은 패키지부터 시작이된다.
 Bean 이름은 Class 이름의 맨 앞글자만 소문자로 바꾸어 지정된다.
 Bean 이름을 직접 지정하고 싶다면 @Component("이름")으로 지정하면 된다.
 
-
-
 하지만 @ComponentScan도 Bean을 등록만 해줄 뿐, 의존관계는 설정해주지 못했다.
 이 것을 해결한게 @Autowired다.
+```
+### @Autowired
+[@Autowired를 통한 singleton Bean dependency 확인](https://github.com/ktj1997/SpringStudy/blob/master/spring/src/test/java/com/study/spring/bean/AutoAnnotationBeanTest.java)
+```
+의존관계를 자동으로 주입해주는 @Autowired는 주로 @ComponentScan과 함께 사용된다.
+설정클래스에 의존관계에 대한 명시를 할 필요가없기 떄문에,
+Bean클래스에서 의존관계를 직접 명시해야 한다.
+@Autowired는 필드,생성자,Setter에 명시 할 수 있다. 기본 조회 전략은 같은 Type을 찾게된다.
+@Component Scan으로 IOC컨테이너에 등록된 Bean들을 조회하여, 
+@Autowired로 엮인 Bean들의 의존관계를 자동으로 설정한다.
+```
+### Bean 중복 정의 시에 충돌
+```
+Bean의 이름에 중복된 이름이 있을 경우 충돌이 발생하는데,
+보통 Bean의 자동정의와 수동정의 설정이 겹치면서 발생한다.
+물론 자동정의 + 자동정의의 설정이 겹치는 경우도 있다. 
+이 떄는 에러가 발생하며 정상 실행이 되지않는다.
+기존의 전략은, 수동이 더 우선권을 가지므로, Spring에서 자동정의 빈에
+수동정의 빈을 Overriding 해주었었다.
+하지만 최근 Spring Boot에서는 자동 정의와 수동정의 빈의 충돌시에도
+에러를 던지도록 변경되었다.
+만약 수동정의 빈의 Overriding을 허용하려면,
+application.properties에 spring.main.allow-bean-definition-overriding = true로 변경해주면 된다.
 ```
