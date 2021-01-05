@@ -2,6 +2,10 @@ package com.study.spring.member.service;
 
 import com.study.spring.member.Member;
 import com.study.spring.member.dao.MemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
 public class MemberServiceImpl implements MemberService{
     //SingletonTest 를 위한 Getter
     public MemberRepository getMemberRepository() {
@@ -10,6 +14,7 @@ public class MemberServiceImpl implements MemberService{
 
     private final MemberRepository memberRepository;
 
+    @Autowired
     public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }

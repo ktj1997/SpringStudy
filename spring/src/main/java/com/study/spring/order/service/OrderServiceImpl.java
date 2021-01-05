@@ -7,7 +7,10 @@ import com.study.spring.member.Member;
 import com.study.spring.member.dao.MemberRepository;
 import com.study.spring.order.Order;
 import com.study.spring.order.dao.OrderRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class OrderServiceImpl implements OrderService {
 
     private final MemberRepository memberRepository;
@@ -37,6 +40,7 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findById(orderId);
     }
 
+    @Autowired
     public OrderServiceImpl(MemberRepository memberRepository, ItemRepository itemRepository, DiscountPolicy discountPolicy, OrderRepository orderRepository) {
         this.memberRepository = memberRepository;
         this.itemRepository = itemRepository;

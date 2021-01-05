@@ -174,3 +174,30 @@ OrderServiceImpl orderService = aac.getBean(OrderServiceImpl.class);
                     () -> assertFalse(memberRepository == orderService.getMemberRepository()),
                     () -> assertFalse(memberService.getMemberRepository() == orderService.getMemberRepository())
             );
+```
+### @Component Scan
+```
+XML → Java를 이용한 Bean설정으로 넘어가면서 편해지긴 했지만,
+개발자가 수동으로 설정을 해주어야하는 것이므로, 
+Bean과 의존관계가 누락되는 경우도 발생하였다.
+Component Scan방법을 이용하여, 그러한 문제점을 해결하고자 하였다.
+@Component Scan이 붙은 설정클래스를 생성하면,@Component와 
+@Component를 상속하는 @Repository, @Service, @Controller, @Configuration이 
+붙은  클래스는 자동으로 Bean에 등록된다.
+
+옵션으로는 대표적으로 basePackages와 excludeFilters, includeFilters가 있는데,
+basePackages는 해당 패키지 + 하위패키지를 Component Scan을 하라고 명시하는 것이고,
+excludeFilter는 Component Scan을 통한 Bean등록에서 제외할 것들을 정의하는것이다.
+includeFilter는 커스텀하게 정의한 class를 Bean으로 등록하고자 할때 사용된다.
+
+default는 @Component Scan이 붙은 패키지부터 시작이된다.
+관례는 설정클래스를 패키지의 최상단에 정의하고, default 설정을 사용하는 것이다.
+
+Bean 이름은 Class 이름의 맨 앞글자만 소문자로 바꾸어 지정된다.
+Bean 이름을 직접 지정하고 싶다면 @Component("이름")으로 지정하면 된다.
+
+
+
+하지만 @ComponentScan도 Bean을 등록만 해줄 뿐, 의존관계는 설정해주지 못했다.
+이 것을 해결한게 @Autowired다.
+```
