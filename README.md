@@ -257,3 +257,14 @@ setter를 통해서 의존성을 변경하고자 할 때 사용된다.
 setter와 다른점은 여러개를 동시에 주입받을 수 있다는 것이다.
 객체 생성 이후에 메소드가 실행된다.
 ```
+
+## @Autowired 주입 옵션
+[Autowired 옵션에 따른 DI 테스트](https://github.com/ktj1997/SpringStudy/blob/master/spring/src/test/java/com/study/spring/bean/AutowiredTest.java)
+### @Autowired(required=false)
+IOC컨테이너가 관리하지 않는 Bean 주입을 요청하면, 메소드 자체를 호출하지 않는다.
+
+### 인자에 @Nullable
+IOC컨테이너가 관리하지 않는 Bean 주입을 요청하면 Null을 주입해준다.
+
+### 인자에 Optional
+IOC컨테이너가 관리하지 않는 Bean 주입시에 Optional.empty()를 주입해준다.
