@@ -268,3 +268,35 @@ IOC컨테이너가 관리하지 않는 Bean 주입을 요청하면 Null을 주�
 
 ### 인자에 Optional
 IOC컨테이너가 관리하지 않는 Bean 주입시에 Optional.empty()를 주입해준다.
+
+## 동일한 Type의 Bean이 2개 이상일 때
+우선적으로 Type으로 검색하고 그 이후에 이름으로 검색한다.
+만약 같은 Type이 2가지 이상 있을 때 에러가 발생한다. (무엇을 주입 받을지 모르기 떄문)
+이럴 때 @Qualifier나 @Primary를 사용 할 수 있다.
+
+### @Qualifier
+DisCountPolicy의 타입을 갖는 Bean이 두가지 있다고 가정할 때,
+
+```java
+@Component
+@Qualifier("FixedPolicy")
+public class FixDiscountPolicy implements DiscountPolicy 
+```
+
+```java
+@Autowired
+    public OrderServiceImpl(@Qualifier("FixedPolicy") DiscountPolicy discountPolicy, OrderRepository orderRepository){ 
+        this.discountPolicy = discountPolicy;
+        this.orderRepository = orderRepository;
+    }
+```
+
+주입 받는 측에서 Parameter에 @Qualifier를 붙인 인자와 함께 주입 가능하다.
+### @Primary
+
+동일 Bean이 2가지 있더라도, @Primary가 붙은 Bean을 주입한다.
+
+```java
+@Component
+@Primaryublic class FixDiscountPolicy implements DiscountPolicy
+```
