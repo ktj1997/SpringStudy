@@ -300,3 +300,44 @@ public class FixDiscountPolicy implements DiscountPolicy
 @Component
 @Primaryublic class FixDiscountPolicy implements DiscountPolicy
 ```
+
+# Spring Bean LifeCycle
+
+### 스프링 컨테이너 생성 → 스프링 빈 생성 → 의존관계 주입
+
+### → 초기화 콜백 → 소멸 전 콜백 → 소멸
+
+### 1. 인터페이스 상속을 통한 LifeCycleCallback 사용
+
+```jsx
+초기화 용도의 Callback을 사용할 경우
+InitializingBean을 implements한다.
+
+소멸 용도의 Callback을 사용할 경우
+DisposalBean을 implements한다.
+
+이 방법의 단점은 SpringContainer에 의존적이 된 다는 것이고,
+코드의 수정이 불가능한 외부라이브러리에는 사용 할 수 없다.
+```
+
+### 2. Bean Configuration을 사용한 LifeCycleCallback 사용
+
+```jsx
+Configuration 클래스에서 Bean을 설정 할 때, 에노테이션에 추가적인 옵션을 부여 할 수 있다.
+
+@Bean(initMethod=[initMethod정의]
+@Bean(destroyMethod=[destroyMethod정의])
+
+Configuration클래스에서의 설정이기 떄문에 Spring에 의존적이지 않으며,
+코드에 변경이 불가능한 외부라이브러리에도 적용이 가능하다.
+```
+
+### 3. Annotaion을 이용한 LiceCycleCallback 사용
+
+```jsx
+에노테이션을 이용하여, LifeCycleCallback사용이 가능하다.
+Bean에 메소드를 정의하고 위에 @PostConstruct나 @PreDestory를 정의하면 된다.
+
+장점은 구현이 쉽다는 것과, 컴포넌트 스캔에 알맞다는 것이지만, 
+1번과마찬가지로 외부라이브러리에 적용이 불가능하다.
+```
