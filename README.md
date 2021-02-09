@@ -341,3 +341,58 @@ Bean에 메소드를 정의하고 위에 @PostConstruct나 @PreDestory를 정의
 장점은 구현이 쉽다는 것과, 컴포넌트 스캔에 알맞다는 것이지만, 
 1번과마찬가지로 외부라이브러리에 적용이 불가능하다.
 ```
+
+## Bean Scope
+
+### Singleton
+
+```jsx
+@Scope("singleton")
+Bean의 Default가 Singleton이다.
+SpringContainer와 Scope가 같은 Bean.
+SpringContainer가 Bean의 생성부터 소멸까지 모두 관여한다.
+
+의존성 주입은 Singleton객체 생성이후 PostConstruct시점에 한번 일어난다.
+```
+
+### Prototype
+
+```jsx
+@Scope("prototype")
+
+Singleton Bean에 비해서 생명이 짧은 Bean
+SpringCotainer가 Bean의 생성과 의존성주입까지는 관여하지만
+객체의 소멸에는 관여하지 않는다.
+
+객체의 소멸시점에 따른 추가작업의 책임은 클라이언트로 넘어간다.
+매번 사용할 때 새로운 의존관계 주입이완료된 객체가 필요할 때 사용한다.
+```
+
+### Singleton과 Prototype을 혼용할 때 문제점
+
+```jsx
+Singleton Bean안에 PrototyeBean을 주입받아 사용할 때,
+의도와 다르게 각 Client마다 PrototypeBean을 할당해주지 않는다.
+
+SingletonBean의 의존성주입은 SingletonBean 생성 시점에서 이미 발생했기 때문이다.
+이러한 경우 DL(DependncyLookUp)이 필요하다.
+
+필요한 Bean을 SpringContainer에서 찾아서 필요할 때 직접 주입하는 것이다.
+ApplicationContext를 주입받아 사용하는 방법도 있지만 너무 Spring에 의존적이다.
+
+방법은 크게 2가지 있다.
+
+1)ObjectProvider - Spring
+  DL기능과 더불어 추가적인 편의기능을 제공해준다.
+  @Autowired
+  ObjectProvider<T> objectProvider;
+  provider.getObjet()를 이용해서 사용 가능하다.
+
+2)Provider - JSR303 Provider
+  java진영의 표준, 하지만 외부라이브러리이다.
+  Spring에 의존적이지않다.
+
+  @Autowired
+  Provider<T> provider;
+  provider.get()을 이용해서 사용가능하다.
+```
