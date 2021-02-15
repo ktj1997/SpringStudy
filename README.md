@@ -396,3 +396,16 @@ ApplicationContext를 주입받아 사용하는 방법도 있지만 너무 Sprin
   Provider<T> provider;
   provider.get()을 이용해서 사용가능하다.
 ```
+
+### web
+```
+ 1.request: Http 요청이 나갔다가 들어올때까지의 생명주기를 가짐
+ 2.session: Http Session만큼의 생명주기를 가짐
+ 3.application: ServerletContext만큼의 생명주기를 가짐
+ 4.webSocket: 웹소켓 만큼의 생명주기를 가짐
+ 
+ 공통점은 이 Bean들은 Web요청이 들어올 때 생성이 
+ Controller나 Service에 생성자 주입이 불가능 하다는 것이다.
+ 
+ 이러한 문제는 Provider나, 프록시를 통해 해결 할 수 있다.
+```
