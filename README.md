@@ -409,3 +409,12 @@ ApplicationContext를 주입받아 사용하는 방법도 있지만 너무 Sprin
  
  이러한 문제는 Provider나, 프록시를 통해 해결 할 수 있다.
 ```
+### webScope 의존성주입 Proxy로 해결
+```
+@Scope(value ="request",proxyMode = ScopedProxyMode.TARGET_CLASS)
+@Scope 에노테이션에는 proxyMode를 지정해 줄 수 있다.
+클래스, 인터페이스를 지정 가능한데, 클래스의 경우 해당 클래스를 상속받은 프록시클래스가 생성된다.(CGLIB 기반)
+해당 프록시객체로 우서적으로 의존성주입이 되고, 실제 사용될 때 실제 해당 클래스를 로딩한다.
+
+Proxy기반 방법과, Provider방법 모두 공통점은 실제 사용 할 때까지 해당 클래스의 로딩을 지연한다는 것이다.
+```
