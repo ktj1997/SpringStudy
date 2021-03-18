@@ -1,6 +1,27 @@
 # SpringStudy
 ## Spring의 핵심개념을 정리하기위한 Repo
 
+
+# POJO (Plain Old Java Object)
+## 특정 기술에 의존적이지 않은 순수한 자바 객체
+```
+특정 기술의 클래스를 상속받거나, 인터페이스를 구현함으로 해서,
+확장성이 떨어지고, 그 기술을 알지못하면 이해할 수 없는 상황이 발생하였다
+그러한 개발문제점의 대항하는 의미로 POJO가 생겼다.
+```
+
+### POJO 규약
+1. 특정규약에 종속되지않는다.
+2. 특정환경에 종속되지않는다.
+3. 객체지향 원리에 
+
+# Spring PSA(Portable Service Object)
+```
+특정 기술 사이에 또 하나의 추상화 Layer를 추가함으로 해서,
+특정 기술에 의존적이 아니고 개발자들은 해당 Layer를 사용하고 내부 기술은 몰라도된다. 
+```
+
+
 # SOLID(OOP 5원칙)
 
 ## SRP(Single Responsibility Principle)
